@@ -5,16 +5,20 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'TxtBrowser'
+Bundle 'tomasr/molokai'
+Bundle 'freya'
 Bundle 'tpope/vim-markdown'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Tagbar'
 filetype plugin indent on "检测文件插件类型
 
-set guifont=Monaco\ for\ Powerline:h13 "字体
+set guifont=Source\ Code\ Pro:h11 "字体
 let g:Powerline_symbols = 'fancy' "Powerline风格
 set background=dark
 colorscheme solarized "配色
 syntax on "语法高亮
 set go-=T "关闭菜单工具栏
+set lines=60 columns=100
 set guioptions+=br "水平垂直滚动条
 set mouse=a "使用鼠标
 set autochdir "自动切换当前文件所在目录
@@ -48,18 +52,12 @@ set list "显示Tab符，用高亮竖线代替
 set listchars=tab:\|\ 
 set confirm "处理未保存或者只读文件时，弹出提示
 set showtabline=2 "多标签
-set autoread "文件被修改时自动读取
+set autoread "文件被修改时自动读
+set completeopt=longest,menu
 
-" 自动完成括号和引号
-inoremap <leader>1 ()<esc>:let leavechar=")"<cr>i
-inoremap <leader>2 []<esc>:let leavechar="]"<cr>i
-inoremap <leader>3 {}<esc>:let leavechar="}"<cr>i
-inoremap <leader>4 {<esc>o}<esc>:let leavechar="}"<cr>O
-inoremap <leader>q ''<esc>:let leavechar="'"<cr>i
-inoremap <leader>w ""<esc>:let leavechar='"'<cr>i
-
-"文本文件语法高亮
-au BufEnter *.txt setlocal ft=txt
+"保存并返回到插入模式/ESC映射
+imap jj <ESC>:w<CR>li
+imap kk <ESC>l
 
 "编码设置
 set encoding=utf-8
@@ -86,6 +84,49 @@ inoremap <c-l> <right>
 inoremap <c-j> <c-o>gj
 inoremap <c-k> <c-o>gk
 
+"Tagbar
+nmap <Leader>tb :TagbarToggle<CR>
+let g:tagbar_width=30
+autocmd BufReadPost *.py,*.java,*.js call tagbar#autoopen()
+
+"Pydiction Python代码补全
+"let g:pydiction_location = '/Users/zhuxulu/vim/bundle/Pydiction/complete-dict'
+"let g:pydiction_height = 20
+
+"neocomplcache
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_enable_auto_select = 1
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+inoremap <expr><Enter>  pumvisible() ? "\<C-Y>" : "\<Enter>"
+
+
+
 "技巧
 "q: || Ctrl+F 查看历史命令
+
+"Tab替换成空格 :set ts=4 :set expandtab :%retab!
+"空格替换成Tab :set ts=4 :set noexpandtab :%retab!
+
+"去掉Windows下的文件行末^M, %s/\r// 或者 %s/ctrl+C ctrl+M//g
+
+"转化文件格式 :set ff=unix/dos
+"强制转换 au BuffWriter *.* :set fileformat=unix
+
+"查看寄存器 :reg
+"
+"复制 yy：复制一行 
+"复制到系统剪切板 v键进入块模式 “+y 复制 “+p 粘贴
 
