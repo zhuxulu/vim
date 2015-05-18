@@ -1,24 +1,25 @@
 set nocompatible "关闭vi兼容模式
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'tomasr/molokai'
-Bundle 'freya'
-Bundle 'tpope/vim-markdown'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Tagbar'
 filetype plugin indent on "检测文件插件类型
 
-set guifont=Source\ Code\ Pro:h11 "字体
-let g:Powerline_symbols = 'fancy' "Powerline风格
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tpope/vim-markdown'
+Bundle 'Yggdroot/indentLine'
+Bundle 'kien/ctrlp.vim'
+Bundle 'junegunn/vim-easy-align'
+Bundle 'scrooloose/nerdtree'
+
 set background=dark
 colorscheme solarized "配色
 syntax on "语法高亮
 set go-=T "关闭菜单工具栏
-set lines=60 columns=100
+set lines=50 columns=80
 set guioptions+=br "水平垂直滚动条
 set mouse=a "使用鼠标
 set autochdir "自动切换当前文件所在目录
@@ -55,6 +56,10 @@ set showtabline=2 "多标签
 set autoread "文件被修改时自动读
 set completeopt=longest,menu
 
+" 设置 gVim 窗口初始位置及大小
+"au GUIEnter * simalt ~x
+autocmd GUIEnter * winpos 0 0 | set lines=99 columns=200
+
 "保存并返回到插入模式/ESC映射
 imap jj <ESC>:w<CR>li
 imap kk <ESC>l
@@ -84,33 +89,32 @@ inoremap <c-l> <right>
 inoremap <c-j> <c-o>gj
 inoremap <c-k> <c-o>gk
 
-"Tagbar
-nmap <Leader>tb :TagbarToggle<CR>
-let g:tagbar_width=30
-autocmd BufReadPost *.py,*.java,*.js call tagbar#autoopen()
+"indentline
+let g:indentLine_char = '┆'
 
-"Pydiction Python代码补全
-"let g:pydiction_location = '/Users/zhuxulu/vim/bundle/Pydiction/complete-dict'
-"let g:pydiction_height = 20
+"airline
+set guifont=Sauce\ Code\ Powerline:h10 "字体
+"let g:Powerline_symbols = 'fancy' "Powerline风格
+let g:airline_powerline_fonts = 1
+"let g:airline#extensions#whitespace#enabled = 0
 
-"neocomplcache
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_enable_auto_select = 1
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-inoremap <expr><Enter>  pumvisible() ? "\<C-Y>" : "\<Enter>"
+"easy-align
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+"nerdTree
+"autocmd vimenter * NERDTree
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
+
+
+
 
 
 
