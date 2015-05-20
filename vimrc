@@ -49,8 +49,8 @@ set hlsearch "高亮显示搜索的内容
 set ignorecase "搜索忽略大小写
 set history=1024 "记录历史的数量
 set backspace=2 "退格键可用
-set list "显示Tab符，用高亮竖线代替
-set listchars=tab:\|\ 
+set list "显示Tab和空格
+set lcs=tab:\|\ ,nbsp:%,trail:- "tab用竖线代替，行尾空格用-代替
 set confirm "处理未保存或者只读文件时，弹出提示
 set showtabline=2 "多标签
 set autoread "文件被修改时自动读
@@ -66,7 +66,7 @@ imap kk <ESC>l
 
 "编码设置
 set encoding=utf-8
-set fileencodings=utf-8,chinese,latin-1
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 language messages zh_CN.utf-8
 source $VIMRUNTIME/menu.vim
 source $VIMRUNTIME/delmenu.vim
@@ -123,6 +123,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 "Tab替换成空格 :set ts=4 :set expandtab :%retab!
 "空格替换成Tab :set ts=4 :set noexpandtab :%retab!
+
+"将行尾多余空格删除 :%s/\s*$//ge
 
 "去掉Windows下的文件行末^M, %s/\r// 或者 %s/ctrl+C ctrl+M//g
 
