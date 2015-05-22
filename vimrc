@@ -6,25 +6,33 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-"Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-markdown'
 Bundle 'Yggdroot/indentLine'
-Bundle 'kien/ctrlp.vim'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'scrooloose/nerdtree'
+Bundle 'terryma/vim-multiple-cursors'
 
 set background=dark
 colorscheme solarized "配色
 syntax on "语法高亮
-set go-=T "关闭菜单工具栏
-set lines=50 columns=80
+winpos 0 0 "窗口位置
+set guioptions-=e
+set guioptions-=m
+set guioptions-=T
+set guioptions-=L
+set guioptions-=r
+set guioptions-=B
+set guioptions-=0
+set go=
+set lines=70 columns=150
 set guioptions+=br "水平垂直滚动条
 set mouse=a "使用鼠标
 set autochdir "自动切换当前文件所在目录
 set nobackup "不备份
 set noswapfile
+set nowritebackup
 set title "显示文件名
 set number "显示行号
 set ruler "右下角显示光标位置
@@ -56,9 +64,20 @@ set showtabline=2 "多标签
 set autoread "文件被修改时自动读
 set completeopt=longest,menu
 
-" 设置 gVim 窗口初始位置及大小
-"au GUIEnter * simalt ~x
-autocmd GUIEnter * winpos 0 0 | set lines=99 columns=200
+"复制粘贴
+vmap <C-c> "+y
+vmap <C-v> "+p
+nmap <C-v> "+p
+imap <C-v> <ESC>"+pa
+
+"全选
+imap <C-a> gg<S-v><S-g>
+nmap <C-a> gg<S-v><S-g>
+vmap <C-a> gg<S-v><S-g>
+
+
+"粘贴时不替换剪切板
+xnoremap p pgvy
 
 "保存并返回到插入模式/ESC映射
 imap jj <ESC>:w<CR>li
