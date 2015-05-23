@@ -12,7 +12,12 @@ Bundle 'tpope/vim-markdown'
 Bundle 'Yggdroot/indentLine'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'ntpeters/vim-better-whitespace'
+Bundle 'terryma/vim-expand-region'
+Bundle 'szw/vim-ctrlspace'
+Bundle 'mhinz/vim-startify'
 
 set background=dark
 colorscheme solarized "配色
@@ -58,23 +63,25 @@ set ignorecase "搜索忽略大小写
 set history=1024 "记录历史的数量
 set backspace=2 "退格键可用
 set list "显示Tab和空格
-set lcs=tab:\|\ ,nbsp:%,trail:- "tab用竖线代替，行尾空格用-代替
+set lcs=tab:\|\ "tab用竖线代替
 set confirm "处理未保存或者只读文件时，弹出提示
 set showtabline=2 "多标签
 set autoread "文件被修改时自动读
 set completeopt=longest,menu
+set hidden "允许在有未保存的修改时切换缓冲区
+"修改vsplit分割线样式为竖线
+hi vertsplit guifg=fg guibg=bg
+set fillchars+=vert:\|
 
 "复制粘贴
 vmap <C-c> "+y
 vmap <C-v> "+p
-nmap <C-v> "+p
 imap <C-v> <ESC>"+pa
 
 "全选
 imap <C-a> gg<S-v><S-g>
 nmap <C-a> gg<S-v><S-g>
 vmap <C-a> gg<S-v><S-g>
-
 
 "粘贴时不替换剪切板
 xnoremap p pgvy
@@ -90,19 +97,29 @@ language messages zh_CN.utf-8
 source $VIMRUNTIME/menu.vim
 source $VIMRUNTIME/delmenu.vim
 
-" 窗口切换
+"窗口切换
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 
-" Buffers/Tab操作快捷方式!
+"Buffer操作
 nnoremap <s-h> :bprevious<cr>
 nnoremap <s-l> :bnext<cr>
+
+"Tab操作
 nnoremap <s-j> :tabnext<cr>
 nnoremap <s-k> :tabprev<cr>
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+nnoremap <C-w>   <Esc>:tabclose<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
+inoremap <C-w>   <Esc>:tabclose<CR>
 
-" 插入模式下上下左右移动光标
+"插入模式下上下左右移动光标
 inoremap <c-h> <left>
 inoremap <c-l> <right>
 inoremap <c-j> <c-o>gj
@@ -113,7 +130,6 @@ let g:indentLine_char = '┆'
 
 "airline
 set guifont=Sauce\ Code\ Powerline:h10 "字体
-"let g:Powerline_symbols = 'fancy' "Powerline风格
 let g:airline_powerline_fonts = 1
 "let g:airline#extensions#whitespace#enabled = 0
 
@@ -123,18 +139,26 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-"nerdTree
-"autocmd vimenter * NERDTree
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"nerdTree-tabs
+:cd $HOME
+map <C-n> :NERDTreeTabsToggle<CR>
+let g:nerdtree_tabs_open_on_gui_startup=1
+let NERDTreeWinPos=1
 
+"vim-expand-region
+map v <Plug>(expand_region_expand)
+map c <Plug>(expand_region_shrink)
 
+"vim-multiple-cursors
+let g:multi_cursor_start_key='<C-m>'
+let g:multi_cursor_start_word_key='g<C-m>'
+let g:multi_cursor_next_key='<C-m>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
 
-
-
-
+"ctrlspace
+ let g:ctrlspace_default_mapping_key="<C-b>"
 
 
 "技巧
@@ -152,6 +176,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 "查看寄存器 :reg
 "
-"复制 yy：复制一行 
+"复制 yy：复制一行
 "复制到系统剪切板 v键进入块模式 “+y 复制 “+p 粘贴
 
