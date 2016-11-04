@@ -8,16 +8,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'tpope/vim-markdown'
 Bundle 'Yggdroot/indentLine'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'terryma/vim-multiple-cursors'
 Bundle 'ntpeters/vim-better-whitespace'
-Bundle 'terryma/vim-expand-region'
-Bundle 'szw/vim-ctrlspace'
-Bundle 'mhinz/vim-startify'
 
 set background=dark
 colorscheme solarized "配色
@@ -132,33 +124,6 @@ let g:indentLine_char = '┆'
 set guifont=Sauce\ Code\ Powerline:h10 "字体
 let g:airline_powerline_fonts = 1
 "let g:airline#extensions#whitespace#enabled = 0
-
-"easy-align
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-"nerdTree-tabs
-:cd $HOME
-map <C-n> :NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_gui_startup=1
-let NERDTreeWinPos=1
-
-"vim-expand-region
-map v <Plug>(expand_region_expand)
-map c <Plug>(expand_region_shrink)
-
-"vim-multiple-cursors
-let g:multi_cursor_start_key='<C-m>'
-let g:multi_cursor_start_word_key='g<C-m>'
-let g:multi_cursor_next_key='<C-m>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-
-"ctrlspace
- let g:ctrlspace_default_mapping_key="<C-b>"
 
 
 "技巧
