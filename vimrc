@@ -6,7 +6,8 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'bling/vim-airline'
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Yggdroot/indentLine'
 Bundle 'ntpeters/vim-better-whitespace'
@@ -123,7 +124,7 @@ let g:indentLine_char = '┆'
 "airline
 set guifont=Sauce\ Code\ Powerline:h10 "字体
 let g:airline_powerline_fonts = 1
-"let g:airline#extensions#whitespace#enabled = 0
+let g:airline_theme='luna'
 
 
 "技巧
